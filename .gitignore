@@ -1,0 +1,15 @@
+# Secrets - only config.example.php is committed
+backend/config/config.php
+.env
+
+# Composer dependencies
+backend/vendor/
+
+# Logs
+backend/logs/*
+!backend/logs/.gitkeep
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
