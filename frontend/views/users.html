@@ -1,0 +1,95 @@
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Users <span class="badge text-bg-light fs-6 align-middle">admin</span></h1>
+        <p class="page-subtitle">Manage accounts and roles.</p>
+    </div>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#user-modal">
+        <i class="bi bi-plus-lg me-1"></i> Add user
+    </button>
+</div>
+
+<!-- M1: static rows. From M4 loaded from GET /users. -->
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="users-table">
+                <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>City</th><th>Joined</th><th class="text-end">Actions</th></tr></thead>
+                <tbody>
+                <tr><td>Amel Karšić</td><td>amel@sofra.ba</td><td><span class="badge text-bg-primary">admin</span></td><td>Sarajevo</td><td>01.10.2026</td><td class="text-end text-nowrap">
+                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#user-modal" title="Edit"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal" title="Delete"><i class="bi bi-trash"></i></button>
+                </td></tr>
+                <tr><td>Amra Hadžić</td><td>amra@sofra.ba</td><td><span class="badge text-bg-light">user</span></td><td>Mostar</td><td>03.10.2026</td><td class="text-end text-nowrap">
+                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#user-modal" title="Edit"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal" title="Delete"><i class="bi bi-trash"></i></button>
+                </td></tr>
+                <tr><td>Emina Softić</td><td>emina@sofra.ba</td><td><span class="badge text-bg-light">user</span></td><td>Tuzla</td><td>05.10.2026</td><td class="text-end text-nowrap">
+                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#user-modal" title="Edit"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal" title="Delete"><i class="bi bi-trash"></i></button>
+                </td></tr>
+                <tr><td>Lejla Mujić</td><td>lejla@sofra.ba</td><td><span class="badge text-bg-light">user</span></td><td>Zenica</td><td>09.10.2026</td><td class="text-end text-nowrap">
+                    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#user-modal" title="Edit"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light text-danger" data-bs-toggle="modal" data-bs-target="#delete-user-modal" title="Delete"><i class="bi bi-trash"></i></button>
+                </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="user-modal" tabindex="-1" aria-labelledby="user-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" id="user-form" novalidate>
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="user-modal-title">User</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label" for="users-first-name">First name</label>
+                    <input type="text" class="form-control" id="users-first-name" name="first_name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="users-last-name">Last name</label>
+                    <input type="text" class="form-control" id="users-last-name" name="last_name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="users-email">Email</label>
+                    <input type="email" class="form-control" id="users-email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="users-role">Role</label>
+                    <select class="form-select" id="users-role" name="role"><option>user</option><option>admin</option></select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="users-city">City</label>
+                    <input type="text" class="form-control" id="users-city" name="city">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="delete-user-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <i class="bi bi-exclamation-triangle text-danger fs-1"></i>
+                <h2 class="h5 mt-2">Delete this user?</h2>
+                <p class="text-muted mb-0">This cannot be undone.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    new DataTable("#users-table", { pageLength: 10, columnDefs: [{ orderable: false, targets: -1 }] });
+</script>

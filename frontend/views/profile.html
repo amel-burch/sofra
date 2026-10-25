@@ -1,0 +1,68 @@
+<div class="page-header">
+    <div>
+        <h1 class="page-title">My profile</h1>
+        <p class="page-subtitle">Your account details and your recipes.</p>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <span class="avatar avatar-lg mb-3">AK</span>
+                <h2 class="h5 fw-bold mb-0">Amel Karšić</h2>
+                <p class="text-muted mb-2">amel@sofra.ba</p>
+                <span class="badge text-bg-primary">admin</span>
+                <hr>
+                <div class="row">
+                    <div class="col"><div class="fw-bold">6</div><small class="text-muted">Recipes</small></div>
+                    <div class="col"><div class="fw-bold">11</div><small class="text-muted">Reviews</small></div>
+                    <div class="col"><div class="fw-bold">5</div><small class="text-muted">Favorites</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card mb-3">
+            <div class="card-header">Account details</div>
+            <div class="card-body">
+                <form id="profile-form" class="row g-3" novalidate>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="profile-first-name">First name</label>
+                        <input type="text" class="form-control" id="profile-first-name" value="Amel">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="profile-last-name">Last name</label>
+                        <input type="text" class="form-control" id="profile-last-name" value="Karšić">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="profile-email">Email</label>
+                        <input type="email" class="form-control" id="profile-email" value="amel@sofra.ba">
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="profile-city">City</label>
+                        <input type="text" class="form-control" id="profile-city" value="Sarajevo">
+                    </div>
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">My recipes</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#recipe-details" class="text-decoration-none fw-semibold">Sarajevski ćevapi</a>
+                    <span class="rating small"><i class="bi bi-star-fill"></i> 4.8</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#recipe-details" class="text-decoration-none fw-semibold">Hurmašice</a>
+                    <span class="rating small"><i class="bi bi-star-fill"></i> 4.2</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
