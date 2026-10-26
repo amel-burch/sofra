@@ -1,0 +1,61 @@
+<div class="page-header">
+    <div>
+        <h1 class="page-title">World kitchen</h1>
+        <p class="page-subtitle">International recipes by <a href="https://www.themealdb.com" target="_blank" rel="noopener">TheMealDB</a>, for when you want something new.</p>
+    </div>
+</div>
+
+<!-- External API feature. M1: planned layout only. M3: backend endpoint GET /world-recipes?q=..., M4: connected UI. -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form id="world-search-form" class="row g-2" novalidate>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                    <input type="search" class="form-control" id="world-search" name="q" placeholder="Dish name - e.g. moussaka, curry, pasta" value="moussaka">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="world-category" name="category">
+                    <option value="">Any category</option>
+                    <option>Beef</option><option>Chicken</option><option>Dessert</option>
+                    <option>Seafood</option><option>Vegetarian</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-grid">
+                <button type="button" class="btn btn-primary"><i class="bi bi-search me-1"></i> Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row g-3" id="world-results">
+    <div class="col-12 col-sm-6 col-xl-4">
+        <div class="card recipe-card">
+            <div class="recipe-banner cat-stew"><i class="bi bi-globe2"></i></div>
+            <div class="card-body">
+                <span class="badge text-bg-light mb-2">Beef · Greek</span>
+                <div class="recipe-title">Moussaka</div>
+                <div class="recipe-meta mb-3">Layers of aubergine, spiced beef and béchamel.</div>
+                <a href="https://www.themealdb.com" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">Show recipe</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-4">
+        <div class="card recipe-card">
+            <div class="recipe-banner cat-veg"><i class="bi bi-globe2"></i></div>
+            <div class="card-body">
+                <span class="badge text-bg-light mb-2">Vegetarian · Greek</span>
+                <div class="recipe-title">Vegetarian Moussaka</div>
+                <div class="recipe-meta mb-3">Lentils and potatoes instead of meat.</div>
+                <a href="https://www.themealdb.com" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">Show recipe</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Shown when TheMealDB is unavailable (M3: timeout + friendly message) -->
+<div class="alert alert-warning mt-4 d-flex align-items-center gap-2" role="alert">
+    <i class="bi bi-wifi-off"></i>
+    <div><strong>Preview:</strong> if TheMealDB is unavailable this message replaces the results - the rest of Sofra keeps working.</div>
+</div>

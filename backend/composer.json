@@ -1,0 +1,8 @@
+{
+    "name": "amel-burch/sofra-backend",
+    "description": "Sofra - REST API for the IT 2001 Web Programming project",
+    "type": "project",
+    "require": {
+        "php": ">=8.2"
+    }
+}

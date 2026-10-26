@@ -1,0 +1,92 @@
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Dobar tek, Amel 👋</h1>
+        <p class="page-subtitle">What is cooking on Sofra this week.</p>
+    </div>
+    <a href="#recipes" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> New recipe</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-xl-3">
+        <div class="card stat-card"><div class="card-body">
+            <div class="stat-icon bg-soft-orange"><i class="bi bi-journal-text"></i></div>
+            <div><div class="stat-value">24</div><div class="stat-label">Recipes</div></div>
+        </div></div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="card stat-card"><div class="card-body">
+            <div class="stat-icon bg-soft-green"><i class="bi bi-people"></i></div>
+            <div><div class="stat-value">12</div><div class="stat-label">Cooks</div></div>
+        </div></div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="card stat-card"><div class="card-body">
+            <div class="stat-icon bg-soft-amber"><i class="bi bi-star"></i></div>
+            <div><div class="stat-value">4.6</div><div class="stat-label">Average rating</div></div>
+        </div></div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="card stat-card"><div class="card-body">
+            <div class="stat-icon bg-soft-rose"><i class="bi bi-heart"></i></div>
+            <div><div class="stat-value">5</div><div class="stat-label">My favorites</div></div>
+        </div></div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-8">
+        <div class="card h-100">
+            <div class="card-header">Recipes per category</div>
+            <div class="card-body"><div id="recipes-chart" style="height: 300px"></div></div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header">Top rated</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div><div class="fw-semibold">Burek</div><small class="text-muted">Pita · by Amra H.</small></div>
+                    <span class="rating"><i class="bi bi-star-fill"></i> 4.9</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div><div class="fw-semibold">Sarajevski ćevapi</div><small class="text-muted">Meat · by Amel K.</small></div>
+                    <span class="rating"><i class="bi bi-star-fill"></i> 4.8</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div><div class="fw-semibold">Bosanski lonac</div><small class="text-muted">Stew · by Emina S.</small></div>
+                    <span class="rating"><i class="bi bi-star-fill"></i> 4.7</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div><div class="fw-semibold">Tufahije</div><small class="text-muted">Dessert · by Lejla M.</small></div>
+                    <span class="rating"><i class="bi bi-star-fill"></i> 4.6</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- External API feature (TheMealDB): planned in M1, implemented in M3/M4 -->
+<div class="card mt-3">
+    <div class="card-body d-flex flex-wrap align-items-center gap-3">
+        <div class="stat-icon bg-soft-sky"><i class="bi bi-globe2"></i></div>
+        <div class="flex-grow-1">
+            <div class="fw-semibold">Looking for inspiration?</div>
+            <div class="text-muted small">Search thousands of international recipes, powered by TheMealDB.</div>
+        </div>
+        <a href="#world-kitchen" class="btn btn-outline-primary">Open world kitchen</a>
+    </div>
+</div>
+
+<script>
+    // M1: static demo data. From M4 these numbers come from the backend.
+    Highcharts.chart("recipes-chart", {
+        chart: { type: "column", backgroundColor: "transparent", style: { fontFamily: "Inter" } },
+        title: { text: null },
+        credits: { enabled: false },
+        legend: { enabled: false },
+        xAxis: { categories: ["Pita", "Meat", "Stew", "Dessert", "Vegetarian"] },
+        yAxis: { title: { text: "Recipes" }, allowDecimals: false },
+        series: [{ name: "Recipes", data: [6, 5, 4, 6, 3], color: "#c2410c", borderRadius: 6 }]
+    });
+</script>
