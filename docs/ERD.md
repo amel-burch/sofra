@@ -1,4 +1,4 @@
-# Sofra - Entity Relationship Diagram (draft)
+# Sofra - Entity Relationship Diagram
 
 Sofra is a recipe-sharing app focused on Bosnian cuisine. Users publish recipes, list their
 ingredients, review and save other people's recipes. Admins manage categories, ingredients,
@@ -73,6 +73,8 @@ erDiagram
     }
 ```
 
+The database is created by [`database/sofra.sql`](../database/sofra.sql) (schema + sample data).
+
 ## Relationships
 
 | Relationship                 | Type | Rule                                                              |
@@ -84,6 +86,17 @@ erDiagram
 | User → Favorites / Recipe → Favorites | 1:N | A user saves a recipe at most once (unique `user_id, recipe_id`). |
 
 `reviews` and `favorites` are two many-to-many relationships between users and recipes.
+
+## Delete rules
+| Foreign key | On delete | Why |
+|-------------|-----------|-----|
+| recipes.user_id | CASCADE | Deleting a user removes their recipes. |
+| recipes.category_id | RESTRICT | A category that still has recipes cannot be deleted. |
+| recipe_ingredients.recipe_id | CASCADE | Ingredient lines belong to the recipe. |
+| recipe_ingredients.ingredient_id | RESTRICT | An ingredient used in a recipe cannot be deleted. |
+| reviews.*, favorites.* | CASCADE | They disappear with their user or recipe. |
+
+Checks: `reviews.rating BETWEEN 1 AND 5`, `recipe_ingredients.quantity > 0`, `recipes.servings > 0`.
 
 ## External API
 [TheMealDB](https://www.themealdb.com/api.php) - "World kitchen" page: search international recipes

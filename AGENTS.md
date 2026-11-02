@@ -32,6 +32,7 @@ backend/             REST API - only PHP
   rest/dao/          data access layer (PDO)
   middleware/        reusable FlightPHP middleware
   logs/              info.log / error.log (NOT committed)
+database/            sofra.sql - schema + sample data (re-import to reset the DB)
 docs/                ERD, AI log
 ```
 
@@ -41,6 +42,10 @@ docs/                ERD, AI log
 3. SQL lives only in DAO classes and always uses prepared statements.
 4. Secrets (DB password, JWT secret, API keys) only in `backend/config/config.php`, read via `Config::...()`.
 5. The last `<section>` in `index.html` is the default view (spapp); keep `dashboard` last.
+6. Every DAO extends `BaseDao` and passes its table name and the list of writable columns.
+   Add custom queries only as DAO methods; use `query` / `query_unique` / `execute` with named parameters.
+7. Never return the `password` column except from `UserDao::get_by_email` (login).
+8. Schema changes go into `database/sofra.sql` AND `docs/ERD.md` in the same commit.
 
 ## Naming conventions
 - PHP classes `PascalCase` (`RecipeService`), PHP methods/variables `snake_case` (`get_by_id`).
