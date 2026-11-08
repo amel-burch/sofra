@@ -27,9 +27,11 @@ frontend/            static SPA - only HTML, CSS and JS
 backend/             REST API - only PHP
   index.php          entry point
   config/            config.example.php (committed), config.php (NOT committed)
-  rest/routes/       presentation layer - FlightPHP routes
-  rest/services/     business logic layer
+  rest/routes/       presentation layer - FlightPHP routes (one file per entity)
+  rest/services/     business logic layer (BaseService + one service per entity, MealDbService)
   rest/dao/          data access layer (PDO)
+  utils/             Validator (400 rules) and exceptions with HTTP status codes
+  public/v1/docs/    Swagger UI (index.html), swagger.php, doc_setup.php (schemas), paths/ (one file per route file)
   middleware/        reusable FlightPHP middleware
   logs/              info.log / error.log (NOT committed)
 database/            sofra.sql - schema + sample data (re-import to reset the DB)
@@ -46,6 +48,15 @@ docs/                ERD, AI log
    Add custom queries only as DAO methods; use `query` / `query_unique` / `execute` with named parameters.
 7. Never return the `password` column except from `UserDao::get_by_email` (login).
 8. Schema changes go into `database/sofra.sql` AND `docs/ERD.md` in the same commit.
+9. Routes stay thin: read the request, call ONE service method, `Flight::json(...)`. No try/catch in routes.
+10. Services signal problems by throwing `ValidationException` (400), `NotFoundException` (404),
+    `ExternalServiceException` (503) from `utils/exceptions.php`. `Flight::map('error')` in `index.php`
+    is the only place that builds error responses. Never echo SQL, stack traces or file paths.
+11. Every service extends `BaseService` and puts its rules in `validate($entity, $id)`; `$id` is null on create.
+    Use `$nullable` for optional text columns and `$immutable` for ids that must not change on update.
+12. Every new or changed route gets its OpenAPI attributes in `public/v1/docs/paths/<Entity>Paths.php` in the same commit.
+13. External APIs are called only from a backend service with cURL, a timeout from Config, status/JSON checks,
+    `error_log()` on failure and a friendly 503 message. Return only the fields the frontend needs.
 
 ## Naming conventions
 - PHP classes `PascalCase` (`RecipeService`), PHP methods/variables `snake_case` (`get_by_id`).
