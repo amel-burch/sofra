@@ -57,3 +57,39 @@ MySQL 9 server with PHP 8.5: the SQL file was imported and `test.php` ran CRUD o
    and `composer.json` allows PHP 8.2.
    *How noticed:* the warning showed up in the `test.php` output.
    *Fix:* use `Pdo\Mysql::ATTR_FOUND_ROWS` when that class exists, otherwise the old constant.
+
+## Milestone 3 - Services, routes, OpenAPI, external API
+
+**Tools used:** Claude Code (Claude Opus) in the terminal - `BaseService` and the 7 entity services,
+FlightPHP routes, the error handler, `MealDbService` for TheMealDB, and the swagger-php attributes.
+The structure follows the course reference project (weeks 04-06: `BaseService`, `utils/Validator.php`,
+`utils/exceptions.php`, `Flight::map('error')`, `OpenMeteoService`, `public/v1/docs`). Everything was tested
+against local MySQL with a curl script that calls every endpoint with valid data and with each broken rule
+(about 90 requests), plus TheMealDB with an unreachable URL and a wrong URL, a wrong DB name for the 500 case,
+and "Try it out" in Swagger UI.
+
+**Most important prompts**
+- "Write BaseService like the week-04 reference and one service per entity with real business rules
+  (unique names/emails, last admin, delete only unused categories/ingredients, one review per user and recipe,
+  no review of your own recipe, recipe + ingredients in one transaction). Services are the only DAO callers."
+- "Write thin FlightPHP routes for full CRUD of all entities and one error handler that maps the exceptions
+  to 400/404/503/500 JSON without leaking SQL or stack traces."
+- "Write MealDbService for TheMealDB (search, categories, filter, lookup, random) with a timeout from Config,
+  error_log on failure and a friendly 503; map the 20 strIngredient/strMeasure columns into a list."
+- "Document every endpoint with swagger-php attributes, one Paths class per route file, and add Swagger UI."
+
+**Cases where the AI was wrong**
+1. *What:* "Try it out" in Swagger UI would have called `http://localhost:8000/backend//categories/1` (two
+   slashes), which FlightPHP answers with 404. `swagger.php` (taken over from the reference project) built the
+   server URL with a trailing slash, and every documented path starts with `/`.
+   *How noticed:* the generated JSON showed `"url": "http://localhost:8000/backend/"`; `curl .../backend//categories/1`
+   returned `{"error":"Endpoint not found."}`.
+   *Fix:* `rtrim($path, '/')` when defining `API_BASE_URL`; checked in the browser that Swagger now calls
+   `/backend/categories/1` and gets 200.
+2. *What:* in the curl test script, the "recipe without instructions" test passed for the wrong reason. The body
+   was written in single quotes with `$CID` inside, so the shell did not replace the variable and the JSON was
+   invalid. The API correctly answered 400 "The request body is not valid JSON", so the expected status matched,
+   but the "instructions" rule was never tested.
+   *How noticed:* read the response text next to the status instead of only the OK/FAIL column.
+   *Fix:* ran the request again with valid JSON and got 400 "Field 'instructions' is required.". Lesson: a test
+   for an error case must check the message, not only the status code.

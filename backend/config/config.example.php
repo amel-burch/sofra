@@ -21,6 +21,8 @@ class Config
     // TheMealDB (milestone 3). "1" is the public test key.
     public static function MEALDB_BASE_URL() { return self::get_env('MEALDB_BASE_URL', 'https://www.themealdb.com/api/json/v1/'); }
     public static function MEALDB_API_KEY()  { return self::get_env('MEALDB_API_KEY', '1'); }
+    /** Seconds to wait before we give up - the app must keep working when the API is slow or down. */
+    public static function MEALDB_TIMEOUT()  { return self::get_env('MEALDB_TIMEOUT', 5); }
 
     /**
      * Environment variables (set on the server) win over the default values above.
